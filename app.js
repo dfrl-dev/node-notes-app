@@ -6,5 +6,5 @@ const note = getNotes();
 console.log(note);
 
 console.log(chalk.green("Success!"));
-console.log(chalk.bold.green.inverse("Testing an inverted green bold log!"));
+console.log(chalk.bold.red.inverse("Nodemon is working!"));
 

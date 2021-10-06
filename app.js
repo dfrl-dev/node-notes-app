@@ -1,3 +1,5 @@
-const fs = require('fs');
+const getNotes = require('./notes.js');
 
-fs.writeFileSync('notes.txt', 'Testing first file write.');
+const note = getNotes();
+
+console.log(note);

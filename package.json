@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/dfrl-dev/node-notes-app#readme",
   "dependencies": {
+    "@types/node": "^16.10.3",
     "chalk": "^2.4.1",
+    "node": "^16.10.0",
     "validator": "^10.8.0",
     "yargs": "^12.0.2"
   }

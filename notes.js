@@ -1,23 +1,39 @@
 const fs = require('fs')
 const chalk = require('chalk')
 
-const getNotes = function () {
-    return "Your notes...";
-}
+const getNotes = () => {
+    console.log(chalk.magenta.inverse('Your notes: '))
 
-const addNote = function (title, body) {
     const notes = loadNotes()
 
-    const duplicateNotes = notes.filter(function (note) {
-        return note.title === title
+    notes.forEach((note) => {
+        console.log(note.title)
     })
+}
 
-    if (duplicateNotes.length === 0) {
+const readNote = (title) => {
+    const notes = loadNotes()
+    const noteToRead = notes.find((note) => note.title === title)
+    
+    if(!noteToRead) {
+        console.log(chalk.red.inverse('Note not found!'))
+    }else {
+        console.log(chalk.inverse(title))
+        console.log(note.body)
+    }
+
+}
+
+const addNote = (title, body) => {
+
+    const notes = loadNotes()
+    const duplicateNote = notes.find((note) => note.title === title)
+
+    if (!duplicateNote) {
         notes.push({
             title: title,
             body: body
         })
-
         saveNotes(notes)
         console.log(chalk.green.inverse('New note added!'))
     } else {
@@ -25,12 +41,10 @@ const addNote = function (title, body) {
     }
 }
 
-const removeNote = function (title, body) {
+const removeNote = (title, body) => {
     const notes = loadNotes()
 
-    const notesToKeep = notes.filter(function (note) {
-        return note.title !== title
-    })
+    const notesToKeep = notes.filter((note)  => note.title !== title)
 
     if (notes.length > notesToKeep.length) {
         console.log(chalk.green.inverse("Note removed!"))
@@ -40,11 +54,11 @@ const removeNote = function (title, body) {
     }
 }
 
-const saveNotes = function (notes) {
+const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes)
     fs.writeFileSync('notes.json', dataJSON)
 }
-const loadNotes = function () {
+const loadNotes = () => {
     try {
         const dataBuffer = fs.readFileSync("notes.json")
         const dataJSON = dataBuffer.toString()
@@ -56,5 +70,6 @@ const loadNotes = function () {
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    readNote: readNote
 }
